@@ -13,9 +13,6 @@
    ```bash
    npm run dev
 
-
-
-
 ## FOR PRODUCTION THE APPLICATION
 
 1. Run Command in your terminal:
