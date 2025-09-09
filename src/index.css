@@ -1,0 +1,40 @@
+@import "tailwindcss";
+/* *{
+    border: 1px solid black;
+} */
+
+/* src/index.css */
+
+/* Lock horizontal scroll global */
+@layer base {
+  html, body, #root { height: 100%; }
+  body { overflow-x: hidden; }
+  /* Bantu browser pakai tema gelap untuk scrollbar default */
+  :root { color-scheme: dark; }
+}
+
+/* Utilitas scrollbar gelap (works Chrome/Edge/Safari + Firefox) */
+@layer utilities {
+  .scrollbar-dark {
+    /* Firefox */
+    scrollbar-color: #69727d #111; /* thumb track */
+    scrollbar-width: thin;
+  }
+  .scrollbar-dark::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-dark::-webkit-scrollbar-track {
+    background: #111;
+  }
+  .scrollbar-dark::-webkit-scrollbar-thumb {
+    background: #69727d;
+    border-radius: 9999px;
+  }
+  .scrollbar-dark::-webkit-scrollbar-thumb:hover {
+    background: #5a626b;
+  }
+
+  /* Opsional: utility singkat untuk hilangkan horizontal overflow per-container */
+  .no-x-scroll { overflow-x: hidden; }
+}
