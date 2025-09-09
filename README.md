@@ -1,4 +1,4 @@
-# 🚀 Web Application Setup
+# 🚀 Wedding Invitation Setup
 
 📦 **Latest npm version required:** 11.6.0
 
