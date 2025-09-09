@@ -8,10 +8,11 @@
 
 1. Install dependencies:
    ```bash
-   npm install
+   npm run package
 2. Run The Application:
    ```bash
    npm run dev
+
 
 ## FOR PRODUCTION THE APPLICATION
 
