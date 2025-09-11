@@ -206,7 +206,7 @@ function WeddingPage() {
             </div>
             <div className="w-full h-full flex justify-center items-center text-center">
               <div className="w-full text-xs md:w-[600px] px-9">
-                <p style={{ fontFamily: "'Poppins', serif" }}> "Demikianlah mereka bukan lagi dua melainkan satu. Karena itu apa yang telah di persatukan Allah, tidak boleh di ceraikan manusia" </p>
+                <p style={{ fontFamily: "'Poppins', serif" }}> "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang." </p>
               </div>
             </div>
           </div>
