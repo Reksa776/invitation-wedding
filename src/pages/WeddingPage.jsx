@@ -342,16 +342,11 @@ function WeddingPage() {
 
                 <div className="w-full p-13 flex justify-center items-center text-center">
                   <div className="w-[600px]">
-                    <p className="text-xs md:text-xl">Kami juga berencana untuk mempublikasikan pernikahan kami secara virtual melalui live di instagram yang bisa anda ikuti melalui link berikut</p>
-                    <a
-                      href={url}
-                      target="_blank"
-                      style={{ fontFamily: "'Cinzel', serif" }}
-                      className="inline-flex mt-10 text-sm items-center gap-2 px-6 py-3 bg-[#69727d] hover:bg-[#5a626b] text-white rounded-md shadow-lg transition"
-                    >
-                      Join Us
-                      <GoArrowRight />
-                    </a>
+                    <p className="text-xs md:text-xl">Kami juga berencana untuk mempublikasikan pernikahan kami secara virtual melalui live di Channel Youtube yang bisa anda cari</p>
+                    <div className="flex text-xs md:text-xl justify-center items-center mt-6 gap-2">
+                      <img src="/images/logo/icon-yt.png" width="60px" alt="" />
+                      RJL PRODUCTION
+                    </div>
                   </div>
                 </div>
 
