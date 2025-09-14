@@ -51,7 +51,7 @@ function WeddingPage() {
     }
 
     const newRSVP = {
-      id: Date.now(),
+      id: Date.now().toString(),
       ...form,
       createdAt: serverTimestamp(),
     };
