@@ -4,7 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaEnvelopeOpen } from "react-icons/fa";
 import { GoArrowRight } from "react-icons/go";
 import { Layout } from "../components/Layout";
-import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 
 function WeddingPage() {
@@ -51,7 +56,7 @@ function WeddingPage() {
     }
 
     const newRSVP = {
-      id: Date.now().toString(),
+      id: Date.now(),
       ...form,
       createdAt: serverTimestamp(),
     };
@@ -64,7 +69,7 @@ function WeddingPage() {
 
   const loadRSVP = async () => {
     const snapshot = await getDocs(collection(db, "rsvp"));
-    const data = snapshot.docs.map(doc => {
+    const data = snapshot.docs.map((doc) => {
       const d = doc.data();
       return {
         id: doc.id,
@@ -76,10 +81,10 @@ function WeddingPage() {
   };
   const loadRUrl = async () => {
     const querySnapshot = await getDocs(collection(db, "settings"));
-      if (!querySnapshot.empty) {
-        const data = querySnapshot.docs[0].data();
-        setUrl(data.url || "");
-      }
+    if (!querySnapshot.empty) {
+      const data = querySnapshot.docs[0].data();
+      setUrl(data.url || "");
+    }
   };
 
   // hitung selisih waktu
@@ -123,9 +128,7 @@ function WeddingPage() {
   }, []);
 
   return (
-    <div className="relative w-full h-full text-white overflow-x-hidden bg-[url('/images/5backup.jpg')] bg-fixed bg-cover bg-center"
-
-    >
+    <div className="relative w-full h-full text-white overflow-x-hidden bg-[url('/images/5backup.jpg')] bg-fixed bg-cover bg-center">
       {/* Landing Page */}
       <AnimatePresence>
         {showLanding && (
@@ -147,7 +150,9 @@ function WeddingPage() {
                   Erin <span className="font-light">&</span> Sutani
                 </h1>
                 <p className="text-sm md:text-lg mb-1">04 Oktober 2025</p>
-                <p className="p-2 text-sm md:text-lg font-semibold">Kepada Yth :</p>
+                <p className="p-2 text-sm md:text-lg font-semibold">
+                  Kepada Yth :
+                </p>
                 <p className="p-2 text-sm md:text-lg mb-6">Tamu Undangan</p>
               </div>
 
@@ -190,8 +195,14 @@ function WeddingPage() {
         <Layout bg=" bg-[url('/images/12.jpg')]">
           <div className="flex flex-col item-center justify-center h-screen w-full">
             <div className="flex mb-40 h-full w-full flex-col text-center justify-center">
-              <p className="uppercase tracking-widest text-xs md:text-sm mb-2"> The Wedding Of </p>
-              <h1 className="text-4xl md:text-5xl font-serif mb-4" style={{ fontFamily: "'Cinzel Decorative', serif" }} >
+              <p className="uppercase tracking-widest text-xs md:text-sm mb-2">
+                {" "}
+                The Wedding Of{" "}
+              </p>
+              <h1
+                className="text-4xl md:text-5xl font-serif mb-4"
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              >
                 Erin <span className="font-light">&</span> Sutani
               </h1>
               <div className="flex gap-2 justify-center items-center">
@@ -206,7 +217,13 @@ function WeddingPage() {
             </div>
             <div className="w-full h-full flex justify-center items-center text-center">
               <div className="w-full text-xs md:w-[600px] px-9">
-                <p style={{ fontFamily: "'Poppins', serif" }}> "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang." -- Ar-Rum 21 </p>
+                <p style={{ fontFamily: "'Poppins', serif" }}>
+                  {" "}
+                  "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia
+                  menciptakan pasangan-pasangan untukmu dari jenismu sendiri,
+                  agar kamu cenderung dan merasa tenteram kepadanya, dan Dia
+                  menjadikan di antaramu rasa kasih dan sayang." -- Ar-Rum 21{" "}
+                </p>
               </div>
             </div>
           </div>
@@ -269,14 +286,14 @@ function WeddingPage() {
                         Sutani (Kembar)
                       </p>
                       <p className="text-sm opacity-90">
-                        Putra ke-2 Bpk. Kamsia & (Kartalim) & Ny. Carsini (Sirnabaya)
+                        Putra ke-2 Bpk. Kamsia & (Kartalim) & Ny. Carsini
+                        (Sirnabaya)
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
             </Layout>
-
 
             <Layout bg="bg-black/40">
               <div className="h-full flex flex-col mt-50 justify-center items-center text-center">
@@ -298,15 +315,21 @@ function WeddingPage() {
                 <div className="flex gap-6 md:gap-16 mb-12">
                   <div className="text-center">
                     <p className="text-4xl md:text-5xl">{timeLeft.days}</p>
-                    <p className="uppercase text-sm md:text-base tracking-widest">Hari</p>
+                    <p className="uppercase text-sm md:text-base tracking-widest">
+                      Hari
+                    </p>
                   </div>
                   <div className="text-center">
                     <p className="text-4xl md:text-5xl">{timeLeft.hours}</p>
-                    <p className="uppercase text-sm md:text-base tracking-widest">Jam</p>
+                    <p className="uppercase text-sm md:text-base tracking-widest">
+                      Jam
+                    </p>
                   </div>
                   <div className="text-center">
                     <p className="text-4xl md:text-5xl">{timeLeft.minutes}</p>
-                    <p className="uppercase text-sm md:text-base tracking-widest">Menit</p>
+                    <p className="uppercase text-sm md:text-base tracking-widest">
+                      Menit
+                    </p>
                   </div>
                 </div>
 
@@ -314,18 +337,34 @@ function WeddingPage() {
                 <div className="grid grid-cols-1 text-center text-shadow-none px-5 text-[#4a3600] md:grid-cols-2 gap-6 max-w-4xl w-full">
                   {/* Card 1 */}
                   <div className="bg-white p-5 flex gap-4 flex-col justify-evenly items-center h-[300px] w-full rounded-lg">
-                    <h3 className="text-3xl" style={{ fontFamily: "'Cinzel Decorative', serif" }}>Akad Nikah</h3>
+                    <h3
+                      className="text-3xl"
+                      style={{ fontFamily: "'Cinzel Decorative', serif" }}
+                    >
+                      Akad Nikah
+                    </h3>
                     <p className="text-2xl">04 Oktober 2025</p>
                     <p className="text-xl">08:00 - 11:00 WIB</p>
-                    <p className="text-xs">Desa Suranenggala Blok Senin RT. 02 RW. 02 Kec. Suranenggala Kab. Cirebon</p>
+                    <p className="text-xs">
+                      Desa Suranenggala Blok Senin RT. 02 RW. 02 Kec.
+                      Suranenggala Kab. Cirebon
+                    </p>
                   </div>
 
                   {/* Card 2 */}
                   <div className="bg-white p-5 flex gap-4 flex-col justify-evenly items-center h-[300px] w-full rounded-lg">
-                    <h3 className="text-3xl" style={{ fontFamily: "'Cinzel Decorative', serif" }}>Resepsi</h3>
+                    <h3
+                      className="text-3xl"
+                      style={{ fontFamily: "'Cinzel Decorative', serif" }}
+                    >
+                      Resepsi
+                    </h3>
                     <p className="text-2xl">04 Oktober 2025</p>
                     <p className="text-xl">11:00 - Selesai WIB</p>
-                    <p className="text-xs">Desa Suranenggala Blok Senin RT. 02 RW. 02 Kec. Suranenggala Kab. Cirebon</p>
+                    <p className="text-xs">
+                      Desa Suranenggala Blok Senin RT. 02 RW. 02 Kec.
+                      Suranenggala Kab. Cirebon
+                    </p>
                   </div>
                 </div>
               </div>
@@ -342,15 +381,17 @@ function WeddingPage() {
 
                 <div className="w-full p-13 flex justify-center items-center text-center">
                   <div className="w-[600px]">
-                    <p className="text-xs md:text-xl">Kami juga berencana untuk mempublikasikan pernikahan kami secara virtual melalui live di Channel Youtube yang bisa anda cari</p>
+                    <p className="text-xs md:text-xl">
+                      Kami juga berencana untuk mempublikasikan pernikahan kami
+                      secara virtual melalui live di Channel Youtube yang bisa
+                      anda cari
+                    </p>
                     <div className="flex text-xs md:text-xl justify-center items-center mt-6 gap-2">
                       <img src="/images/logo/icon-yt.png" width="60px" alt="" />
                       RJL PRODUCTION
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </Layout>
 
@@ -363,7 +404,6 @@ function WeddingPage() {
                   RSVP
                 </h2>
                 <div className="bg-white text-shadow-none mt-10 text-black rounded-lg w-full max-w-lg p-6">
-
                   {/* Form */}
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <input
@@ -401,8 +441,11 @@ function WeddingPage() {
                   {/* List */}
                   {/* List */}
                   <div
-                    className={`mt-6 space-y-4 ${rsvpList.length > 2 ? "max-h-[200px]  overflow-y-auto  pr-2" : ""
-                      }`}
+                    className={`mt-6 space-y-4 ${
+                      rsvpList.length > 2
+                        ? "max-h-[200px]  overflow-y-auto  pr-2"
+                        : ""
+                    }`}
                   >
                     {rsvpList.map((rsvp) => (
                       <div
@@ -412,10 +455,15 @@ function WeddingPage() {
                         <div className="flex flex-col justify-between items-start">
                           <p className="font-bold text-xs">{rsvp.nama}</p>
                         </div>
-                        <p className="text-sm mt-1 text-xs italic">{rsvp.ucapan}</p>
+                        <p className="text-sm mt-1 text-xs italic">
+                          {rsvp.ucapan}
+                        </p>
                         <p
-                          className={`text-xs ${rsvp.kehadiran === "Hadir" ? "text-green-600" : "text-red-600"
-                            }`}
+                          className={`text-xs ${
+                            rsvp.kehadiran === "Hadir"
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }`}
                         >
                           {rsvp.kehadiran}
                         </p>
@@ -453,6 +501,63 @@ function WeddingPage() {
                 </div>
               </div>
             </Layout>
+            <Layout bg="bg-black/40">
+              <div className="h-full flex flex-col mt-50 justify-center items-center text-center">
+                <h2
+                  className="text-3xl md:text-5xl font-serif"
+                  style={{ fontFamily: "'Cinzel Decorative', serif" }}
+                >
+                  No Rekening
+                </h2>
+                <div className="bg-white text-black rounded-lg shadow-lg mt-10 p-6 max-w-lg w-full space-y-4">
+                  <div className="border p-4 rounded">
+                    <p className="font-bold text-lg">BCA</p>
+                    <p className="text-sm">1234567890</p>
+                    <p className="text-sm italic">a.n Erin Sat Riyani</p>
+                  </div>
+                  <div className="border p-4 rounded">
+                    <p className="font-bold text-lg">BRI</p>
+                    <p className="text-sm">9876543210</p>
+                    <p className="text-sm italic">a.n Sutani</p>
+                  </div>
+                </div>
+                <p className="mt-6 text-xs md:text-sm italic text-gray-300">
+                  Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami,
+                  namun jika ingin memberikan tanda kasih, dapat melalui nomor
+                  rekening di atas.
+                </p>
+              </div>
+            </Layout>
+
+            <Layout bg="bg-black/40">
+              <div className="h-full flex flex-col mt-50 justify-center items-center text-center w-full">
+                <h2
+                  className="text-3xl md:text-5xl font-serif mb-6"
+                  style={{ fontFamily: "'Cinzel Decorative', serif" }}
+                >
+                  Lokasi Acara
+                </h2>
+                <div className="w-full max-w-3xl h-[400px] rounded-lg overflow-hidden shadow-lg">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.148486832046!2d108.578!3d-6.706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fef8c2cbd9c11%3A0x123456789abcdef!2sSuraneggala%2C%20Cirebon!5e0!3m2!1sen!2sid!4v1234567890"
+                    width="100%"
+                    height="100%"
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="border-0 w-full h-full"
+                  ></iframe>
+                </div>
+                <a
+                  href="https://goo.gl/maps/xyz123"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-block px-6 py-2 bg-white text-black rounded shadow hover:bg-gray-200"
+                >
+                  Buka di Google Maps
+                </a>
+              </div>
+            </Layout>
 
             <Layout bg="bg-black/40">
               <div className="h-auto w-full flex flex-col mt-30 justify-center items-center text-center">
@@ -464,8 +569,9 @@ function WeddingPage() {
                     Terima Kasih
                   </h2>
                   <p className="text-white mt-20 max-w-xl mb-12 text-sm md:text-base">
-                    Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila
-                    Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa & restu kepada Kami.
+                    Merupakan suatu kebahagiaan dan kehormatan bagi kami,
+                    apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan
+                    doa & restu kepada Kami.
                   </p>
 
                   {/* Footer */}
@@ -476,11 +582,10 @@ function WeddingPage() {
                     >
                       Created by
                     </p>
-                    <p className=" text-base">
-                      Yuuki | @yuuki.studio_
-                    </p>
+                    <p className=" text-base">Yuuki | @yuuki.studio_</p>
                     <p className="text-xs font-bold mt-4">
-                      YUUKI © 2025 BEYONCE ELECTRONIC INVITATION ALL RIGHTS RESERVED
+                      YUUKI © 2025 BEYONCE ELECTRONIC INVITATION ALL RIGHTS
+                      RESERVED
                     </p>
                   </div>
                 </div>
@@ -488,9 +593,8 @@ function WeddingPage() {
             </Layout>
           </>
         )}
-
       </motion.div>
-    </div >
+    </div>
   );
 }
 
