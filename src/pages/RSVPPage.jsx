@@ -30,15 +30,12 @@ function RSVPPage() {
   // Fungsi hapus satu RSVP
   const handleDeleteOne = async (id) => {
     const confirmDelete = window.confirm("Hapus data ini?");
-    try {
-      if (confirmDelete) {
+    if (!confirmDelete) {
       await deleteDoc(doc(db, "rsvp", id))
       setRsvpList((prev) => prev.filter((rsvp) => rsvp.id !== id));
     }
-    } catch (error) {
-      console.log(error);
-      
-    }
+
+
   };
 
   // Logout user dari Firebase Auth
