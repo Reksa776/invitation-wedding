@@ -1,8 +1,7 @@
 // App.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaEnvelopeOpen } from "react-icons/fa";
-import { GoArrowRight } from "react-icons/go";
 import { Layout } from "../components/Layout";
 import {
   collection,
@@ -12,14 +11,24 @@ import {
 } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 
-function WeddingPage() {
+let name;
+
+function WeddingPage({ names }) {
   const [rsvpList, setRsvpList] = useState([]);
   const [url, setUrl] = useState("");
+  const audioRef = useRef(null);
   const [form, setForm] = useState({
     nama: "",
     ucapan: "",
     kehadiran: "Hadir",
   });
+
+  if (typeof names !== "undefined" && names !== null && names.trim() !== "") {
+    name = names;
+  } else {
+    name = "Tamu Undangan";
+  }
+
   const photos = [
     "images/memories/1.jpg",
     "images/memories/2.jpg",
@@ -116,6 +125,30 @@ function WeddingPage() {
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Tab tidak aktif -> pause audio
+        if (audioRef.current && !audioRef.current.paused) {
+          audioRef.current.pause();
+        }
+      } else {
+        // Tab aktif kembali -> lanjutkan audio
+        if (audioRef.current && showLanding === false) {
+          audioRef.current.play().catch((err) => {
+            console.warn("Autoplay mungkin diblokir saat kembali ke tab:", err);
+          });
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [showLanding]); // showLanding agar hanya main setelah invitation dibuka
+
   // 🔒 Disable klik kanan (biar ga bisa save image)
   useEffect(() => {
     const disableRightClick = (e) => e.preventDefault();
@@ -153,13 +186,20 @@ function WeddingPage() {
                 <p className="p-2 text-sm md:text-lg font-semibold">
                   Kepada Yth :
                 </p>
-                <p className="p-2 text-sm md:text-lg mb-6">Tamu Undangan</p>
+                <p className="p-2 text-sm md:text-lg mb-6">{name}</p>
               </div>
 
               {/* Button Mobile */}
               <div className="block md:hidden fixed bottom-6 left-0 right-0 flex justify-center z-20">
                 <button
-                  onClick={() => setShowLanding(false)}
+                  onClick={() => {
+                    setShowLanding(false);
+                    if (audioRef.current) {
+                      audioRef.current.play().catch((err) => {
+                        console.warn("Autoplay blocked:", err);
+                      });
+                    }
+                  }}
                   style={{ fontFamily: "'Cinzel', serif" }}
                   className="inline-flex text-xs items-center gap-2 px-6 py-2 bg-[#69727d] hover:bg-[#5a626b] text-white rounded-md shadow-lg transition"
                 >
@@ -171,7 +211,14 @@ function WeddingPage() {
               {/* Button Desktop */}
               <div className="hidden md:block mt-6">
                 <button
-                  onClick={() => setShowLanding(false)}
+                  onClick={() => {
+                    setShowLanding(false);
+                    if (audioRef.current) {
+                      audioRef.current.play().catch((err) => {
+                        console.warn("Autoplay blocked:", err);
+                      });
+                    }
+                  }}
                   style={{ fontFamily: "'Cinzel', serif" }}
                   className="inline-flex text-sm items-center gap-2 px-6 py-3 bg-[#69727d] hover:bg-[#5a626b] text-white rounded-md shadow-lg transition"
                 >
@@ -192,6 +239,7 @@ function WeddingPage() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        <audio ref={audioRef} src="/audio/song.mp3" loop preload="metadata" />
         <Layout bg=" bg-[url('/images/12.jpg')]">
           <div className="flex flex-col item-center justify-center h-screen w-full">
             <div className="flex mb-40 h-full w-full flex-col text-center justify-center">
@@ -259,7 +307,7 @@ function WeddingPage() {
                         Erin Sat Riyani
                       </p>
                       <p className="text-sm opacity-90">
-                        Putri ke-1 Bpk. Caswan & Ibu Suheni (Suraneggala)
+                        Putri ke-1 Bpk. Caswan & Ibu Suheni (Suranenggala)
                       </p>
                     </div>
 
@@ -286,7 +334,7 @@ function WeddingPage() {
                         Sutani (Kembar)
                       </p>
                       <p className="text-sm opacity-90">
-                        Putra ke-2 Bpk. Kamsia & (Kartalim) & Ny. Carsini
+                        Putra ke-2 Bpk. Kamsia / (Kartalim) & Ny. Carsini
                         (Sirnabaya)
                       </p>
                     </div>
@@ -502,7 +550,7 @@ function WeddingPage() {
               </div>
             </Layout>
             <Layout bg="bg-black/40">
-              <div className="h-full flex flex-col mt-50 justify-center items-center text-center">
+              <div className="h-full text-shadow-none flex flex-col mt-50 justify-center items-center text-center">
                 <h2
                   className="text-3xl md:text-5xl font-serif"
                   style={{ fontFamily: "'Cinzel Decorative', serif" }}
@@ -512,16 +560,16 @@ function WeddingPage() {
                 <div className="bg-white text-black rounded-lg shadow-lg mt-10 p-6 max-w-lg w-full space-y-4">
                   <div className="border p-4 rounded">
                     <p className="font-bold text-lg">BCA</p>
-                    <p className="text-sm">1234567890</p>
-                    <p className="text-sm italic">a.n Erin Sat Riyani</p>
+                    <p className="text-sm">3741020627</p>
+                    <p className="text-sm italic">Erin Sat Riyani</p>
                   </div>
                   <div className="border p-4 rounded">
-                    <p className="font-bold text-lg">BRI</p>
-                    <p className="text-sm">9876543210</p>
-                    <p className="text-sm italic">a.n Sutani</p>
+                    <p className="font-bold text-lg">BCA</p>
+                    <p className="text-sm">1342490659</p>
+                    <p className="text-sm italic">Sutani</p>
                   </div>
                 </div>
-                <p className="mt-6 text-xs md:text-sm italic text-gray-300">
+                <p className="mt-6 text-sm md:text-base italic text-gray-300">
                   Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami,
                   namun jika ingin memberikan tanda kasih, dapat melalui nomor
                   rekening di atas.
@@ -539,7 +587,7 @@ function WeddingPage() {
                 </h2>
                 <div className="w-full max-w-3xl h-[400px] rounded-lg overflow-hidden shadow-lg">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.148486832046!2d108.578!3d-6.706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fef8c2cbd9c11%3A0x123456789abcdef!2sSuraneggala%2C%20Cirebon!5e0!3m2!1sen!2sid!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3963.2385884080068!2d108.51795497499366!3d-6.617253393376862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMzcnMDIuMSJTIDEwOMKwMzEnMTMuOSJF!5e0!3m2!1sen!2sid!4v1758417478271!5m2!1sen!2sid"
                     width="100%"
                     height="100%"
                     allowFullScreen=""
@@ -549,10 +597,10 @@ function WeddingPage() {
                   ></iframe>
                 </div>
                 <a
-                  href="https://goo.gl/maps/xyz123"
+                  href="https://maps.app.goo.gl/BgcbmsABFLaaLaQ79"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block px-6 py-2 bg-white text-black rounded shadow hover:bg-gray-200"
+                  className="mt-4 inline-block px-6 py-2 bg-white text-black rounded text-shadow-none hover:bg-gray-200"
                 >
                   Buka di Google Maps
                 </a>
